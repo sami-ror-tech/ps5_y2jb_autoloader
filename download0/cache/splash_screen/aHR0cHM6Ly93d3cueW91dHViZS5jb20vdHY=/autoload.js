@@ -266,6 +266,12 @@ async function start_autoload() {
           log("[ERROR] " + errorMsg);
           send_notification("[ERROR] " + errorMsg);
         }
+      } else if (trimmedLine.startsWith('@')) {
+        // notification command
+        let notificationMsg = trimmedLine.substring(1).trim();
+        // replace "\n" with actual newlines
+        notificationMsg = notificationMsg.replace(/\\n/g, '\n');
+        send_notification(notificationMsg);
       } else if (trimmedLine === 'elfldr.elf') {
         const fullPath = trimmedLine.startsWith('/') ? trimmedLine : configDir + trimmedLine;
         // using custom elfldr
@@ -301,7 +307,7 @@ async function start_autoload() {
           } catch (e) {
             const errorMsg = "Failed to execute JS: " + fullPath;
             log("[ERROR] " + errorMsg + " - " + e.message);
-            send_notification("[ERROR] " + errorMsg);
+            send_notification("[ERROR] " + errorMsg + "\n" + e.message);
           }
         } else {
           const errorMsg = "File not found: " + fullPath;
