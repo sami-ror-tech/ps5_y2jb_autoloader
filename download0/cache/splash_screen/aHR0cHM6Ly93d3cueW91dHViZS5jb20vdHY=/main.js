@@ -7,7 +7,7 @@
 
 const version_string = "Y2JB 1.2.1 by Gezine";
 
-const autoloader_version_string = "Autoloader v0.2.2 by PLK";
+const autoloader_version_string = "Autoloader v0.3 by PLK";
 
 
 
@@ -916,10 +916,12 @@ function trigger() {
 
         await load_localscript('lapse.js');
         await load_localscript('update.js');
+        await load_localscript('icon_update.js');
         await load_localscript('autoload.js');
 
         await start_lapse();
         await start_update();
+        await start_icon_update();
         await start_autoload();
 
         send_notification("Autoload finished.\nClosing YT app");
